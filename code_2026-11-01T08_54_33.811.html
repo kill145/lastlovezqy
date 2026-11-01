@@ -9,103 +9,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #231a14;
-    --bg-deep: #1c1510;
-    --panel: #2d2119;
-    --line: #453629;
-    --line-soft: #3a2d21;
-    --ink: #ecdfc8;
-    --ink-dim: #b7a68e;
-    --ink-faint: #87775f;
-    --rose: #dda9a2;
-    --rose-deep: #b97f76;
-    --gold: #c9a86a;
-    --paper: #f1e6d0;
-    --paper-ink: #4f3e2c;
-    color-scheme: dark;
+    --bg: #231a14; --bg-deep: #1c1510; --panel: #2d2119; --line: #453629; --line-soft: #3a2d21;
+    --ink: #ecdfc8; --ink-dim: #b7a68e; --ink-faint: #87775f; --rose: #dda9a2; --rose-deep: #b97f76;
+    --gold: #c9a86a; --paper: #f1e6d0; --paper-ink: #4f3e2c; color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { overflow-x: hidden; }
   body {
-    background: var(--bg);
-    color: var(--ink);
+    background: var(--bg); color: var(--ink);
     font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
-    font-size: 15px;
-    line-height: 1.75;
-    -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: transparent;
+    font-size: 15px; line-height: 1.75; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
   }
-  .serif { font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", Georgia, serif; }
-
-  /* —— 纸面纹理（淡淡的颗粒，像旧纸张）—— */
   body::before {
-    content: "";
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background:
       radial-gradient(ellipse 80% 60% at 15% -10%, rgba(221,169,162,.06), transparent 60%),
       radial-gradient(ellipse 70% 50% at 110% 110%, rgba(201,168,106,.05), transparent 60%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTile='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity: .8;
   }
-
-  /* ================= 侧边栏 ================= */
-  .sidebar {
-    position: fixed; top: 0; left: 0; bottom: 0; width: 248px; z-index: 20;
-    background: rgba(28,21,16,.92);
-    border-right: 1px solid var(--line-soft);
-    display: flex; flex-direction: column;
-    padding: 34px 20px 26px;
-  }
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 248px; z-index: 20; background: rgba(28,21,16,.92); border-right: 1px solid var(--line-soft); display: flex; flex-direction: column; padding: 34px 20px 26px; }
   .brand { display: flex; align-items: center; gap: 12px; padding: 0 6px 26px; border-bottom: 1px solid var(--line-soft); margin-bottom: 24px; }
-  .seal {
-    flex: none; width: 46px; height: 46px;
-    border: 1.5px solid var(--rose-deep); border-radius: 6px;
-    display: grid; place-items: center;
-    color: var(--rose-deep);
-    font-family: "Noto Serif SC", "Songti SC", serif;
-    font-size: 22px; font-weight: 600;
-    transform: rotate(-4deg);
-    box-shadow: inset 0 0 0 3px var(--bg-deep);
-  }
+  .seal { flex: none; width: 46px; height: 46px; border: 1.5px solid var(--rose-deep); border-radius: 6px; display: grid; place-items: center; color: var(--rose-deep); font-family: "Noto Serif SC", "Songti SC", serif; font-size: 22px; font-weight: 600; transform: rotate(-4deg); box-shadow: inset 0 0 0 3px var(--bg-deep); }
   .brand-text .t { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 17px; letter-spacing: .18em; color: var(--ink); }
   .brand-text .s { font-size: 11px; color: var(--ink-faint); letter-spacing: .18em; margin-top: 3px; }
   .nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-  .nav a {
-    display: flex; align-items: baseline; gap: 10px;
-    padding: 10px 12px;
-    color: var(--ink-dim); text-decoration: none;
-    font-size: 14.5px; letter-spacing: .08em;
-    border-left: 2px solid transparent;
-    border-radius: 0 6px 6px 0;
-  }
+  .nav a { display: flex; align-items: baseline; gap: 10px; padding: 10px 12px; color: var(--ink-dim); text-decoration: none; font-size: 14.5px; letter-spacing: .08em; border-left: 2px solid transparent; border-radius: 0 6px 6px 0; }
   .nav a .no { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 11px; color: var(--ink-faint); letter-spacing: .1em; }
   .nav a:hover { color: var(--ink); }
   .nav a.active { color: var(--ink); border-left-color: var(--rose); background: rgba(221,169,162,.07); }
   .nav a.active .no { color: var(--rose); }
   .side-foot { margin-top: 18px; padding: 0 6px; font-size: 11px; line-height: 1.9; color: var(--ink-faint); letter-spacing: .15em; }
-
-  /* ================= 内容区 ================= */
   .content { margin-left: 248px; padding: 56px clamp(28px, 7vw, 84px) 72px; max-width: 900px; position: relative; z-index: 1; }
   .section { display: none; }
   .section.show { display: block; animation: fadeIn .25s ease; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
   .sec-head { margin-bottom: 28px; }
   .sec-eyebrow { font-size: 11px; letter-spacing: .4em; color: var(--rose-deep); margin-bottom: 10px; }
   .sec-title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: clamp(26px, 4vw, 32px); font-weight: 600; letter-spacing: .12em; }
   .sec-sub { color: var(--ink-dim); font-size: 13.5px; margin-top: 8px; }
-
   .ornament { display: flex; align-items: center; gap: 12px; margin: 30px 0; color: var(--rose-deep); font-family: "Noto Serif SC", serif; font-size: 15px; opacity: .85; }
   .ornament::before, .ornament::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-
-  /* 首页 */
-  .home-stamp {
-    display: inline-block; margin-bottom: 20px;
-    border: 1.5px solid var(--rose-deep); border-radius: 5px;
-    padding: 5px 14px; color: var(--rose-deep);
-    font-family: "Noto Serif SC", "Songti SC", serif;
-    font-size: 12.5px; letter-spacing: .3em;
-    transform: rotate(-2deg);
-  }
+  .home-stamp { display: inline-block; margin-bottom: 20px; border: 1.5px solid var(--rose-deep); border-radius: 5px; padding: 5px 14px; color: var(--rose-deep); font-family: "Noto Serif SC", "Songti SC", serif; font-size: 12.5px; letter-spacing: .3em; transform: rotate(-2deg); }
   .home-title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: clamp(32px, 6vw, 44px); font-weight: 600; letter-spacing: .14em; line-height: 1.55; }
   .home-title em { color: var(--rose); font-style: normal; }
   .home-intro { max-width: 34em; color: var(--ink-dim); margin-top: 20px; white-space: pre-line; }
@@ -116,17 +61,9 @@
   .note { background: var(--panel); border: 1px solid var(--line-soft); border-radius: 8px; padding: 16px 20px; font-size: 13px; color: var(--ink-dim); line-height: 2; }
   .note b { color: var(--gold); font-weight: normal; }
   .foot { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line-soft); text-align: center; font-size: 12px; color: var(--ink-faint); letter-spacing: .2em; line-height: 2; }
-
-  /* 通用 */
   .card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: 8px; padding: 16px 18px; }
   .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: transparent; border: 1px solid var(--line);
-    color: var(--ink-dim); font-size: 13px; letter-spacing: .06em;
-    padding: 8px 16px; border-radius: 999px; cursor: pointer;
-    font-family: inherit; line-height: 1.4;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--line); color: var(--ink-dim); font-size: 13px; letter-spacing: .06em; padding: 8px 16px; border-radius: 999px; cursor: pointer; font-family: inherit; line-height: 1.4; }
   .btn:hover { border-color: var(--rose-deep); color: var(--rose); }
   .btn-accent { border-color: var(--rose-deep); color: var(--rose); }
   .btn-accent:hover { background: rgba(221,169,162,.08); }
@@ -137,82 +74,43 @@
   .hint { font-size: 12px; color: var(--ink-faint); margin-top: 8px; line-height: 1.8; }
   .temp-label { font-size: 12px; color: var(--ink-faint); letter-spacing: .1em; }
   .rec-time { color: #e0806f; }
-
   .empty { text-align: center; border: 1px dashed var(--line); border-radius: 10px; padding: 46px 20px; color: var(--ink-faint); }
   .empty .mark { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 26px; color: var(--rose-deep); margin-bottom: 12px; }
   .empty p { font-size: 14px; line-height: 2; }
-
-  /* 回忆摘录 */
   .memory-item { margin-bottom: 14px; }
   .memory-item .text { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 16.5px; line-height: 1.95; }
   .memory-item .date { margin-top: 8px; font-size: 12px; color: var(--ink-faint); letter-spacing: .15em; }
   .memory-item .del-row { text-align: right; margin-top: 2px; }
-  .mem-input {
-    width: 100%; background: var(--bg-deep); border: 1px solid var(--line); border-radius: 8px;
-    color: var(--ink); padding: 12px 14px; font-family: "Noto Serif SC", "Songti SC", serif;
-    font-size: 15px; line-height: 1.9; resize: vertical;
-  }
+  .mem-input { width: 100%; background: var(--bg-deep); border: 1px solid var(--line); border-radius: 8px; color: var(--ink); padding: 12px 14px; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 15px; line-height: 1.9; resize: vertical; }
   .mem-input:focus { outline: none; border-color: var(--rose-deep); }
   .mem-input::placeholder { color: var(--ink-faint); }
-
-  /* 录音 */
   .audio-item { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
   .audio-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
   .audio-title { font-family: "Noto Serif SC", "Songti SC", serif; font-size: 16px; }
   .audio-date { font-size: 12px; color: var(--ink-faint); letter-spacing: .12em; }
   .audio-item audio { width: 100%; height: 40px; }
-
-  /* 截图 */
+  .drop-zone { margin-top: 12px; border: 1.5px dashed var(--line); background: rgba(30, 23, 17, .9); color: var(--ink-dim); border-radius: 12px; padding: 18px 18px; text-align: center; cursor: pointer; transition: .2s ease; user-select: none; }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--rose-deep); color: var(--rose); background: rgba(221,169,162,.05); }
+  .drop-zone small { display: block; margin-top: 6px; opacity: .8; letter-spacing: .08em; }
   .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 24px 18px; margin-top: 22px; }
-  .photo-card {
-    position: relative; background: var(--paper); padding: 9px 9px 0; border-radius: 3px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.38);
-    transform: rotate(var(--r, -1deg));
-  }
+  .photo-card { position: relative; background: var(--paper); padding: 9px 9px 0; border-radius: 3px; box-shadow: 0 8px 18px rgba(0,0,0,.38); transform: rotate(var(--r, -1deg)); }
   .photo-card:hover { transform: rotate(0deg) translateY(-2px); }
   .photo-card img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #d8cbb0; cursor: zoom-in; }
   .photo-card .cap { padding: 8px 4px 9px; text-align: center; font-family: "Noto Serif SC", "Songti SC", serif; font-size: 12.5px; color: #57452f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .photo-card .del {
-    position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%;
-    background: var(--bg-deep); color: var(--ink-dim); border: 1px solid var(--line);
-    display: grid; place-items: center; cursor: pointer; font-size: 12px; z-index: 2;
-  }
+  .photo-card .del { position: absolute; top: -10px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background: var(--bg-deep); color: var(--ink-dim); border: 1px solid var(--line); display: grid; place-items: center; cursor: pointer; font-size: 12px; z-index: 2; }
   .photo-card .del:hover { color: var(--rose); border-color: var(--rose-deep); }
   .temp-strip { display: flex; gap: 10px; overflow-x: auto; padding: 12px 2px 8px; margin-top: 6px; }
   .temp-strip img { flex: none; height: 110px; width: 110px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); cursor: zoom-in; }
-
-  /* 一封信 */
   .letter-wrap { margin-top: 6px; }
-  .letter-paper {
-    width: 100%; min-height: 480px; resize: vertical;
-    background: var(--paper); color: var(--paper-ink);
-    border: none; border-radius: 6px;
-    padding: 32px 28px 26px;
-    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
-    font-size: 16px; line-height: 32px;
-    background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(122,96,62,.18) 31px 32px);
-    background-attachment: local;
-    outline: none;
-    box-shadow: 0 10px 24px rgba(0,0,0,.35);
-  }
+  .letter-paper { width: 100%; min-height: 480px; resize: vertical; background: var(--paper); color: var(--paper-ink); border: none; border-radius: 6px; padding: 32px 28px 26px; font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; font-size: 16px; line-height: 32px; background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(122,96,62,.18) 31px 32px); background-attachment: local; outline: none; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
   .letter-paper::placeholder { color: #a8957c; }
   .letter-note { margin-top: 10px; font-size: 12.5px; color: var(--ink-faint); letter-spacing: .08em; }
   .letter-note .saved { color: var(--gold); }
-
-  /* 大图预览 */
   .lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(12,8,6,.93); display: flex; align-items: center; justify-content: center; cursor: zoom-out; }
   .lightbox img { max-width: 92vw; max-height: 84vh; border: 10px solid var(--paper); border-radius: 3px; box-shadow: 0 24px 60px rgba(0,0,0,.6); }
   .lightbox .close-hint { position: fixed; bottom: 26px; left: 0; right: 0; text-align: center; color: var(--ink-faint); font-size: 12px; letter-spacing: .3em; }
-
-  /* ================= 手机端：侧边栏变顶部横向导航 ================= */
   @media (max-width: 860px) {
-    .sidebar {
-      position: sticky; top: 0; width: 100%; height: auto; bottom: auto;
-      flex-direction: column; padding: 12px 0 0;
-      border-right: none; border-bottom: 1px solid var(--line-soft);
-      background: rgba(28,21,16,.97);
-      backdrop-filter: blur(6px);
-    }
+    .sidebar { position: sticky; top: 0; width: 100%; height: auto; bottom: auto; flex-direction: column; padding: 12px 0 0; border-right: none; border-bottom: 1px solid var(--line-soft); background: rgba(28,21,16,.97); backdrop-filter: blur(6px); }
     .brand { padding: 2px 20px 12px; border-bottom: none; margin-bottom: 0; gap: 10px; }
     .seal { width: 34px; height: 34px; font-size: 17px; border-radius: 4px; box-shadow: inset 0 0 0 2px var(--bg-deep); }
     .brand-text .t { font-size: 15px; }
@@ -232,9 +130,7 @@
 </style>
 </head>
 <body>
-
 <div class="layout">
-  <!-- ============ 侧边导航 ============ -->
   <aside class="sidebar">
     <div class="brand">
       <div class="seal" id="brand-seal">念</div>
@@ -252,11 +148,7 @@
     </nav>
     <div class="side-foot">声音和照片都留在<br />你自己的浏览器里<br />不会上传到任何地方</div>
   </aside>
-
-  <!-- ============ 内容区 ============ -->
   <main class="content">
-
-    <!-- 首页 -->
     <section class="section" id="sec-home">
       <div class="home-stamp" id="home-stamp">EST. 2026 · 深秋</div>
       <h1 class="home-title" id="home-title"></h1>
@@ -276,7 +168,6 @@
       <div class="foot">所有数据只保存在这台设备的浏览器里<br />想换设备或换浏览器之前，记得先导出备份</div>
     </section>
 
-    <!-- 回忆摘录 -->
     <section class="section" id="sec-memories">
       <div class="sec-head">
         <div class="sec-eyebrow">MOMENTS</div>
@@ -284,9 +175,7 @@
         <p class="sec-sub">偶尔想起的碎片，都记在这里</p>
       </div>
       <div id="mem-list"></div>
-      <div class="toolbar">
-        <button class="btn" id="btn-add-mem">＋ 写下一段回忆</button>
-      </div>
+      <div class="toolbar"><button class="btn" id="btn-add-mem">＋ 写下一段回忆</button></div>
       <div id="mem-form" class="hidden" style="margin-top:14px">
         <textarea id="mem-input" class="mem-input" rows="3" placeholder="把想记住的那句话写下来……"></textarea>
         <div style="display:flex; gap:8px; margin-top:8px; align-items:center; flex-wrap:wrap">
@@ -297,7 +186,6 @@
       </div>
     </section>
 
-    <!-- 通话录音 -->
     <section class="section" id="sec-recordings">
       <div class="sec-head">
         <div class="sec-eyebrow">RECORDINGS</div>
@@ -305,16 +193,16 @@
         <p class="sec-sub">把声音留在这里，就不会被时间冲走</p>
       </div>
       <div class="toolbar">
-        <button class="btn btn-accent" id="btn-add-audio">＋ 添加录音文件</button>
+        <button class="btn btn-accent" id="btn-add-audio">＋ 添加音频</button>
         <button class="btn" id="btn-rec">● 开始录音</button>
         <span class="rec-time hidden" id="rec-time">00:00</span>
       </div>
+      <div class="drop-zone" id="audio-drop-zone">拖放音频文件到这里，或者点击选择<br><small>支持 mp3 / m4a / wav / ogg / webm / aac / flac</small></div>
       <p class="hint">提示：微信的 .amr / .silk 语音文件浏览器无法直接播放，请先转成 mp3 / m4a 再添加。</p>
       <div id="audio-list" style="margin-top:18px"></div>
-      <input type="file" id="audio-file" accept="audio/*" multiple hidden />
+      <input type="file" id="audio-file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac,.flac,.webm,.amr,.silk" multiple hidden />
     </section>
 
-    <!-- 聊天截图 -->
     <section class="section" id="sec-photos">
       <div class="sec-head">
         <div class="sec-eyebrow">SCREENSHOTS</div>
@@ -322,244 +210,169 @@
         <p class="sec-sub">定格下来的屏幕，都是当时的心情</p>
       </div>
       <div class="toolbar">
-        <button class="btn btn-accent" id="btn-add-photo">＋ 添加图片（永久保存）</button>
+        <button class="btn btn-accent" id="btn-add-photo">＋ 添加图片</button>
         <button class="btn" id="btn-preview-photo">选择本地图片预览</button>
       </div>
+      <div class="drop-zone" id="photo-drop-zone">拖放图片到这里，或者点击选择<br><small>支持 jpg / jpeg / png / webp / gif / bmp / heic / heif</small></div>
       <div id="photo-grid" class="photo-grid"></div>
       <div id="temp-area" class="hidden">
         <div class="temp-label" style="margin-top:30px">临时预览 · 不保存 · 刷新后消失</div>
         <div class="temp-strip" id="temp-strip"></div>
         <button class="btn" id="btn-clear-temp" style="font-size:12px; padding:4px 14px">清除临时预览</button>
       </div>
-      <input type="file" id="photo-file" accept="image/*" multiple hidden />
-      <input type="file" id="preview-file" accept="image/*" multiple hidden />
+      <input type="file" id="photo-file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif" multiple hidden />
+      <input type="file" id="preview-file" accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.heic,.heif" multiple hidden />
     </section>
 
-    <!-- 一封信 -->
     <section class="section" id="sec-letter">
       <div class="sec-head">
         <div class="sec-eyebrow">A LETTER</div>
         <h2 class="sec-title">一封信</h2>
         <p class="sec-sub">想说的话，慢慢写。每个字都会自动保存</p>
       </div>
-      <div class="letter-wrap">
-        <textarea class="letter-paper" id="letter" placeholder="亲爱的……"></textarea>
-      </div>
+      <div class="letter-wrap"><textarea class="letter-paper" id="letter" placeholder="亲爱的……"></textarea></div>
       <div class="letter-note">✎ <span id="letter-save-note">所有内容自动保存在这台设备上</span></div>
     </section>
-
   </main>
 </div>
 
-<!-- 大图预览 -->
 <div class="lightbox hidden" id="lightbox">
   <img id="lightbox-img" alt="预览" />
   <div class="close-hint">轻触任意处关闭</div>
 </div>
 
 <script>
-/* ============================================================
-   〇、站点配置 —— 想改什么，改这里就好
-   ============================================================ */
 const SITE = {
-  seal: "念",                                   // 左上角印章里的字
+  seal: "念",
   title: "回忆纪念册",
   tagline: "深夜电台 · 声音与字迹存档",
   stamp: "EST. 2026 · 深秋",
   hero: "把那些夜晚，<em>留在声音里</em>",
-  intro: "这里放着一些舍不得删掉的东西：几段话、几条录音、几张截图。它们原本散落在手机的角落，现在被小心地收进这一页。\n\n声音和图片会一直留在你自己的浏览器里，不会上传到任何地方。想留住什么，就添加进来；想安静一会儿，就把它关掉。",
-  note: "录音和图片会<b>永久保存在这台设备的浏览器本地</b>——刷新、关机都不会消失。<br>如果换手机或换浏览器，请用下面的「导出备份 / 导入备份」把一切都搬过去。"
+  intro: "这里放着一些舍不得删掉的东西：几段话、几条录音、几张截图。它们原本散落在手机的角落，现在被小心地收进这一页。\n\n声音和图片会一直保留在你的浏览器里，不会被上传到任何服务器。",
+  note: "录音和图片会<b>永久保存在这台设备的浏览器本地</b>——刷新、关机都不会消失。<br>如果换手机或换浏览器，请用下面的「导出备份 / 导入备份」功能转移。"
 };
-
-/* ============================================================
-   〇、默认内容 —— 也可以直接把内容写死在这里（写在这里的内容删不掉，除非改代码）
-   音频：把文件放在和本网页同目录的 audio 文件夹里，照着例子写
-   图片：把文件放在 img 文件夹里
-   ============================================================ */
 const DEFAULT_MEMORIES = [
   { text: "凌晨两点十七分，你说睡不着。于是谁都没有挂电话，听彼此的呼吸，一直到窗外开始发亮。", date: "2026年10月 · 深夜" },
   { text: "很多次告别都发生在夜里。挂断之前那几秒的沉默，现在想起来，像一扇轻轻合上的门。", date: "2026年10月 · 深夜" },
   { text: "有些话当时来不及说，后来也就不必说了。只是偶尔还是会想起，那天夜里你声音里的困意。", date: "2026年11月 · 整理旧物时" }
 ];
-
-const DEFAULT_AUDIOS = [
-  // 例子（把前面的 // 删掉就能用）：
-  // { title: "2026年10月3日 · 凌晨一点", file: "audio/2026-10-03.mp3", date: "2026-10-03" },
-];
-
-const DEFAULT_PHOTOS = [
-  // 例子：
-  // { title: "那次聊到天亮的截图", file: "img/shot-1.png", date: "2026-10-05" },
-];
-
-/* ============================================================
-   一、工具函数
-   ============================================================ */
+const DEFAULT_AUDIOS = [];
+const DEFAULT_PHOTOS = [];
+const API_BASE = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'https://memory-album.your-worker.workers.dev' : 'https://memory-album.your-worker.workers.dev';
 const $ = id => document.getElementById(id);
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-const pad = n => String(n).padStart(2, "0");
-const todayStr = () => { const d = new Date(); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); };
-const nowDateTime = () => { const d = new Date(); return d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日 " + pad(d.getHours()) + ":" + pad(d.getMinutes()); };
+const pad = n => String(n).padStart(2, '0');
+const todayStr = () => { const d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+const nowDateTime = () => { const d = new Date(); return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日 ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
 
-function esc(s) {
-  return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-}
-function emptyHTML(mark, html) {
-  return '<div class="empty"><div class="mark">' + mark + '</div><p>' + html + "</p></div>";
-}
-function blobToDataURL(blob) {
-  return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
-}
-function dataURLToBlob(url) {
-  const i = url.indexOf(",");
-  const mime = url.slice(5, url.indexOf(";"));
-  const bin = atob(url.slice(i + 1));
-  const arr = new Uint8Array(bin.length);
-  for (let j = 0; j < bin.length; j++) arr[j] = bin.charCodeAt(j);
-  return new Blob([arr], { type: mime });
-}
-
-/* ============================================================
-   二、本地存储
-   —— 录音和图片：IndexedDB（浏览器本地数据库，容量大，永久保存）
-   —— 文字（信、回忆）：localStorage
-   不支持 IndexedDB 的极少数环境，自动退回 localStorage（容量小）
-   ============================================================ */
-const DB_NAME = "MemoryAlbumDB";
-let _db = null;
-let idbOk = false;
-
-function openDB() {
-  return new Promise((resolve, reject) => {
-    if (!("indexedDB" in window)) return reject(new Error("no indexedDB"));
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = () => {
-      const d = req.result;
-      if (!d.objectStoreNames.contains("audios")) d.createObjectStore("audios", { keyPath: "id" });
-      if (!d.objectStoreNames.contains("photos")) d.createObjectStore("photos", { keyPath: "id" });
-    };
-    req.onsuccess = () => { _db = req.result; resolve(); };
-    req.onerror = () => reject(req.error || new Error("open failed"));
-  });
-}
-function idbOp(store, mode, fn) {
-  return new Promise((resolve, reject) => {
-    const req = fn(_db.transaction(store, mode).objectStore(store));
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>\"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+function emptyHTML(mark, html) { return '<div class="empty"><div class="mark">' + mark + '</div><p>' + html + '</p></div>'; }
+function blobToDataURL(blob) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); }); }
+function dataURLToBlob(url) { const i = url.indexOf(','); const mime = url.slice(5, url.indexOf(';')); const bin = atob(url.slice(i + 1)); const arr = new Uint8Array(bin.length); for (let j = 0; j < bin.length; j++) arr[j] = bin.charCodeAt(j); return new Blob([arr], { type: mime }); }
+function isValidMediaFile(kind, file) { if (!file || !file.name) return false; const type = (file.type || '').toLowerCase(); const name = file.name.toLowerCase(); const audioExt = ['.mp3','.m4a','.wav','.ogg','.aac','.flac','.webm','.amr','.silk']; const imageExt = ['.jpg','.jpeg','.png','.webp','.gif','.bmp','.heic','.heif']; if (kind === 'audios') return type.startsWith('audio/') || audioExt.some(ext => name.endsWith(ext)); if (kind === 'photos') return type.startsWith('image/') || imageExt.some(ext => name.endsWith(ext)); return true; }
 
 const ls = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { console.warn("localStorage 写入失败", e); return false; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { console.warn('localStorage 写入失败', e); return false; } },
   raw(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
   rawSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
 };
 
-const FileStore = {
-  async add(kind, item) {
-    if (idbOk) return idbOp(kind, "readwrite", s => s.put(item));
-    const list = ls.get("fs-" + kind, []);
-    const dataURL = await blobToDataURL(item.blob);
-    const next = list.concat([{ id: item.id, title: item.title, date: item.date, addedAt: item.addedAt, dataURL }]);
-    if (!ls.set("fs-" + kind, next)) alert("存储空间不足：当前浏览器本地容量很小，建议换用 Chrome / Safari 或选小一点的文件。");
-  },
-  async all(kind) {
-    if (idbOk) return idbOp(kind, "readonly", s => s.getAll());
-    return ls.get("fs-" + kind, []).map(it => ({ id: it.id, title: it.title, date: it.date, addedAt: it.addedAt, blob: dataURLToBlob(it.dataURL) }));
-  },
-  async remove(kind, id) {
-    if (idbOk) return idbOp(kind, "readwrite", s => s.delete(id));
-    ls.set("fs-" + kind, ls.get("fs-" + kind, []).filter(it => it.id !== id));
-  },
-  async clear(kind) {
-    if (idbOk) return idbOp(kind, "readwrite", s => s.clear());
-    ls.set("fs-" + kind, []);
+const MEM_KEY = 'mem-user';
+const urlCache = new Map();
+function urlFor(item) { if (!item.blob) return item.file || item.url; if (!urlCache.has(item.id)) urlCache.set(item.id, URL.createObjectURL(item.blob)); return urlCache.get(item.id); }
+function freeUrl(id) { const u = urlCache.get(id); if (u) { URL.revokeObjectURL(u); urlCache.delete(id); } }
+
+async function fetchPublicMedia() {
+  try {
+    const res = await fetch(API_BASE + '/api/media');
+    if (!res.ok) return { items: [] };
+    const data = await res.json();
+    return data || { items: [] };
+  } catch (e) {
+    return { items: [] };
   }
-};
-
-const MEM_KEY = "mem-user";   // 自己添加的回忆
-const urlCache = new Map();   // id -> objectURL，避免重复创建
-
-function urlFor(item) {
-  if (!item.blob) return item.file;               // 写死在代码里的文件路径
-  if (!urlCache.has(item.id)) urlCache.set(item.id, URL.createObjectURL(item.blob));
-  return urlCache.get(item.id);
-}
-function freeUrl(id) {
-  const u = urlCache.get(id);
-  if (u) { URL.revokeObjectURL(u); urlCache.delete(id); }
 }
 
-/* ============================================================
-   三、渲染（全部按数组长度动态渲染）
-   ============================================================ */
+async function uploadPublicMedia(file, kind) {
+  const form = new FormData();
+  form.append('file', file);
+  form.append('title', file.name || '未命名');
+  form.append('type', kind === 'photos' ? 'image' : 'audio');
+  form.append('date', todayStr());
+  const res = await fetch(API_BASE + '/api/media', { method: 'POST', body: form });
+  if (!res.ok) throw new Error('upload failed');
+  return await res.json();
+}
+
+async function deletePublicMedia(id) {
+  const res = await fetch(API_BASE + '/api/media/' + id, { method: 'DELETE' });
+  if (!res.ok) throw new Error('delete failed');
+  return await res.json();
+}
+
 function renderMemories() {
   const user = ls.get(MEM_KEY, []);
   const all = DEFAULT_MEMORIES.concat(user);
-  const box = $("mem-list");
+  const box = $('mem-list');
   if (!all.length) {
-    box.innerHTML = emptyHTML("❦", "还没有写下的片段（暂无回忆）。<br>点下面按钮，写下第一段。");
+    box.innerHTML = emptyHTML('❦', '还没有写下的片段（暂无回忆）。<br>点下面按钮，写下第一段。');
     return;
   }
   box.innerHTML = all.map(m =>
     '<div class="card memory-item">' +
-      '<div class="text">' + esc(m.text) + "</div>" +
-      '<div class="date">' + esc(m.date || "") + "</div>" +
-      (m.id ? '<div class="del-row"><button class="icon-btn" onclick="delMemory(\'' + m.id + '\')" title="删除">×</button></div>' : "") +
-    "</div>"
-  ).join("");
+      '<div class="text">' + esc(m.text) + '</div>' +
+      '<div class="date">' + esc(m.date || '') + '</div>' +
+      (m.id ? '<div class="del-row"><button class="icon-btn" onclick="delMemory(\'' + m.id + '\')" title="删除">×</button></div>' : '') +
+    '</div>'
+  ).join('');
 }
 
 async function renderAudios() {
-  const saved = await FileStore.all("audios");
-  saved.sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
+  const result = await fetchPublicMedia();
+  const saved = (result.items || []).filter(item => item.type === 'audio').map(item => ({ id: item.id, title: item.title, date: item.date || '', file: item.url, url: item.url }));
   const all = saved.concat(DEFAULT_AUDIOS);
-  const box = $("audio-list");
+  const box = $('audio-list');
   if (!all.length) {
-    box.innerHTML = emptyHTML("♪", "还没有保存过录音（暂无录音）。<br>点上方「添加录音文件」，或直接对着手机录一段，<br>声音就会永远留在这里。");
+    box.innerHTML = emptyHTML('♪', '还没有保存过录音（暂无录音）。<br>点上方「添加音频」来加入一段声音，<br>或直接录一段，永久留在这里。');
     return;
   }
   box.innerHTML = all.map(a =>
     '<div class="card audio-item">' +
       '<div class="audio-top">' +
-        "<div>" +
-          '<div class="audio-title">' + esc(a.title || "未命名录音") + "</div>" +
-          '<div class="audio-date">' + esc(a.date || "") + "</div>" +
-        "</div>" +
-        (!a.file ? '<button class="icon-btn" onclick="delAudio(\'' + a.id + '\')" title="删除">×</button>' : "") +
-      "</div>" +
-      '<audio controls preload="none" src="' + urlFor(a) + '"></audio>' +
-    "</div>"
-  ).join("");
+        '<div><div class="audio-title">' + esc(a.title || '未命名录音') + '</div><div class="audio-date">' + esc(a.date || '') + '</div></div>' +
+        '<button class="icon-btn" onclick="delPublicAudio(\'' + a.id + '\')" title="删除">×</button>' +
+      '</div>' +
+      '<audio controls preload="none" src="' + (a.url || urlFor(a)) + '"></audio>' +
+    '</div>'
+  ).join('');
 }
 
 async function renderPhotos() {
-  const saved = await FileStore.all("photos");
-  saved.sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
+  const result = await fetchPublicMedia();
+  const saved = (result.items || []).filter(item => item.type === 'image').map(item => ({ id: item.id, title: item.title, date: item.date || '', file: item.url, url: item.url }));
   const all = saved.concat(DEFAULT_PHOTOS);
-  const grid = $("photo-grid");
+  const grid = $('photo-grid');
   if (!all.length) {
-    grid.innerHTML = emptyHTML("❀", "还没有放任何图片（暂无截图）。<br>点「添加图片」永久保存进来，<br>或用「本地预览」临时看看手机里的截图。");
+    grid.innerHTML = emptyHTML('❀', '还没有放任何图片（暂无截图）。<br>点上方「添加图片」永久保存进来，<br>或用「本地预览」临时看看手机里的截图。');
     return;
   }
   grid.innerHTML = all.map((p, i) => {
     const r = ((i % 5) - 2) * 1.3;
     return '<figure class="photo-card" style="--r:' + r + 'deg">' +
-      (!p.file ? '<button class="del" onclick="delPhoto(\'' + p.id + '\')" title="删除">×</button>' : "") +
-      '<img src="' + urlFor(p) + '" alt="' + esc(p.title || "") + '" onclick="openLightbox(this.src)" />' +
-      '<figcaption class="cap">' + esc(p.title || "") + "</figcaption>" +
-    "</figure>";
-  }).join("");
+      '<button class="del" onclick="delPublicPhoto(\'' + p.id + '\')" title="删除">×</button>' +
+      '<img src="' + (p.url || urlFor(p)) + '" alt="' + esc(p.title || '') + '" onclick="openLightbox(this.src)" />' +
+      '<figcaption class="cap">' + esc(p.title || '') + '</figcaption>' +
+    '</figure>';
+  }).join('');
 }
 
 async function updateStats() {
-  const savedA = await FileStore.all("audios");
-  const savedP = await FileStore.all("photos");
-  $("stat-mem").textContent = DEFAULT_MEMORIES.length + ls.get(MEM_KEY, []).length;
-  $("stat-audio").textContent = DEFAULT_AUDIOS.length + savedA.length;
-  $("stat-photo").textContent = DEFAULT_PHOTOS.length + savedP.length;
+  const result = await fetchPublicMedia();
+  const mediaCount = (result.items || []).length;
+  $('stat-mem').textContent = DEFAULT_MEMORIES.length + ls.get(MEM_KEY, []).length;
+  $('stat-audio').textContent = String((result.items || []).filter(i => i.type === 'audio').length + DEFAULT_AUDIOS.length);
+  $('stat-photo').textContent = String((result.items || []).filter(i => i.type === 'image').length + DEFAULT_PHOTOS.length);
 }
 
 async function refreshData() {
@@ -568,268 +381,144 @@ async function refreshData() {
   await updateStats();
 }
 
-/* ============================================================
-   四、增删操作
-   ============================================================ */
 function delMemory(id) {
-  if (!confirm("删除这段回忆？")) return;
+  if (!confirm('删除这段回忆？')) return;
   ls.set(MEM_KEY, ls.get(MEM_KEY, []).filter(m => m.id !== id));
   refreshData();
 }
-async function delAudio(id) {
-  if (!confirm("确定删除这段录音吗？删除后无法恢复。")) return;
-  await FileStore.remove("audios", id);
-  freeUrl(id);
+async function delPublicAudio(id) {
+  if (!confirm('确定删除这段录音吗？删除后无法恢复。')) return;
+  try { await deletePublicMedia(id); } catch (e) { alert('删除失败'); return; }
   refreshData();
 }
-async function delPhoto(id) {
-  if (!confirm("确定删除这张图片吗？删除后无法恢复。")) return;
-  await FileStore.remove("photos", id);
-  freeUrl(id);
+async function delPublicPhoto(id) {
+  if (!confirm('确定删除这张图片吗？删除后无法恢复。')) return;
+  try { await deletePublicMedia(id); } catch (e) { alert('删除失败'); return; }
   refreshData();
 }
 
-/* —— 添加录音文件（永久保存）—— */
-$("btn-add-audio").addEventListener("click", () => $("audio-file").click());
-$("audio-file").addEventListener("change", async e => {
-  const files = Array.from(e.target.files || []);
-  if (!files.length) return;
-  for (const f of files) {
-    await FileStore.add("audios", { id: uid(), title: f.name, date: todayStr(), addedAt: Date.now(), blob: f });
+async function addFiles(kind, fileList) {
+  const files = Array.from(fileList || []).filter(file => isValidMediaFile(kind, file));
+  if (!files.length) { alert(kind === 'audios' ? '没有可识别的音频文件，请选择 mp3 / m4a / wav / ogg 等格式。' : '没有可识别的图片文件，请选择 jpg / png / webp / gif 等格式。'); return; }
+  for (const file of files) {
+    try {
+      await uploadPublicMedia(file, kind);
+    } catch (e) {
+      alert('上传失败，请检查 Cloudflare Worker 是否已部署并正确配置。');
+      return;
+    }
   }
-  e.target.value = "";
-  refreshData();
-});
+  await refreshData();
+}
 
-/* —— 直接在网页里录音（永久保存）—— */
+function bindDropZone(zoneId, inputId, kind) {
+  const zone = $(zoneId); const input = $(inputId);
+  zone.addEventListener('click', () => input.click());
+  ['dragenter', 'dragover'].forEach(type => zone.addEventListener(type, e => { e.preventDefault(); e.stopPropagation(); zone.classList.add('dragover'); }));
+  ['dragleave', 'drop'].forEach(type => zone.addEventListener(type, e => { e.preventDefault(); e.stopPropagation(); zone.classList.remove('dragover'); }));
+  zone.addEventListener('drop', e => { const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : []; if (files.length) addFiles(kind, files); });
+  input.addEventListener('change', async e => { const files = e.target.files || []; if (files.length) await addFiles(kind, files); e.target.value = ''; });
+}
+
+$('btn-add-audio').addEventListener('click', () => $('audio-file').click());
+$('btn-add-photo').addEventListener('click', () => $('photo-file').click());
+bindDropZone('audio-drop-zone', 'audio-file', 'audios');
+bindDropZone('photo-drop-zone', 'photo-file', 'photos');
+
+const tempUrls = [];
 let mediaRecorder = null, recChunks = [], recTimer = null, recSec = 0;
-const btnRec = $("btn-rec");
-
+const btnRec = $('btn-rec');
 async function toggleRecord() {
-  if (mediaRecorder && mediaRecorder.state === "recording") { stopRecord(); return; }
-  if (!navigator.mediaDevices || !window.MediaRecorder) {
-    alert("当前浏览器不支持录音，请用「添加录音文件」的方式。");
-    return;
-  }
+  if (mediaRecorder && mediaRecorder.state === 'recording') { stopRecord(); return; }
+  if (!navigator.mediaDevices || !window.MediaRecorder) { alert('当前浏览器不支持录音，请用「添加音频」的方式。'); return; }
   let stream;
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  } catch (e) {
-    alert("无法访问麦克风。请检查浏览器权限（手机浏览器通常需要 https 网页或允许麦克风权限）。");
-    return;
-  }
-  const mime = ["audio/mp4", "audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus"]
-    .find(t => MediaRecorder.isTypeSupported(t));
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { alert('无法访问麦克风。请检查浏览器权限（手机浏览器通常需要 https 网页或允许麦克风权限）。'); return; }
+  const mime = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find(t => MediaRecorder.isTypeSupported(t));
   mediaRecorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
   recChunks = [];
   mediaRecorder.ondataavailable = e => { if (e.data.size) recChunks.push(e.data); };
   mediaRecorder.onstop = async () => {
     stream.getTracks().forEach(t => t.stop());
-    const blob = new Blob(recChunks, { type: mime || "audio/webm" });
+    const blob = new Blob(recChunks, { type: mime || 'audio/webm' });
     const now = new Date();
-    const def = "录音 · " + now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate()) + " " + pad(now.getHours()) + ":" + pad(now.getMinutes());
-    const title = prompt("给这段录音起个名字：", def);
-    if (title === null) return; // 取消，不保存
-    await FileStore.add("audios", { id: uid(), title: (title.trim() || def), date: todayStr(), addedAt: Date.now(), blob });
+    const def = '录音 · ' + now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate()) + ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+    const title = prompt('给这段录音起个名字：', def);
+    if (title === null) return;
+    try { await uploadPublicMedia(new File([blob], (title.trim() || def) + '.webm', { type: blob.type || 'audio/webm' }), 'audios'); } catch (e) { alert('录音上传失败'); }
     refreshData();
   };
   mediaRecorder.start();
-  btnRec.textContent = "■ 停止录音";
-  btnRec.classList.add("recording");
-  $("rec-time").classList.remove("hidden");
-  recSec = 0;
-  $("rec-time").textContent = "00:00";
-  recTimer = setInterval(() => {
-    recSec++;
-    $("rec-time").textContent = pad(Math.floor(recSec / 60)) + ":" + pad(recSec % 60);
-  }, 1000);
+  btnRec.textContent = '■ 停止录音';
+  btnRec.classList.add('recording');
+  $('rec-time').classList.remove('hidden');
+  recSec = 0; $('rec-time').textContent = '00:00';
+  recTimer = setInterval(() => { recSec++; $('rec-time').textContent = pad(Math.floor(recSec / 60)) + ':' + pad(recSec % 60); }, 1000);
 }
-function stopRecord() {
-  clearInterval(recTimer);
-  if (mediaRecorder && mediaRecorder.state === "recording") mediaRecorder.stop();
-  btnRec.textContent = "● 开始录音";
-  btnRec.classList.remove("recording");
-  $("rec-time").classList.add("hidden");
-}
-btnRec.addEventListener("click", toggleRecord);
+function stopRecord() { clearInterval(recTimer); if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop(); btnRec.textContent = '● 开始录音'; btnRec.classList.remove('recording'); $('rec-time').classList.add('hidden'); }
+btnRec.addEventListener('click', toggleRecord);
 
-/* —— 添加图片（永久保存）—— */
-$("btn-add-photo").addEventListener("click", () => $("photo-file").click());
-$("photo-file").addEventListener("change", async e => {
-  const files = Array.from(e.target.files || []);
-  if (!files.length) return;
-  for (const f of files) {
-    await FileStore.add("photos", { id: uid(), title: f.name, date: todayStr(), addedAt: Date.now(), blob: f });
+$('btn-preview-photo').addEventListener('click', () => $('preview-file').click());
+$('preview-file').addEventListener('change', e => {
+  const files = Array.from(e.target.files || []); if (!files.length) return;
+  const strip = $('temp-strip');
+  tempUrls.forEach(u => URL.revokeObjectURL(u)); tempUrls.length = 0; strip.innerHTML = '';
+  for (const f of files) { const u = URL.createObjectURL(f); tempUrls.push(u); const img = document.createElement('img'); img.src = u; img.onclick = () => openLightbox(u); strip.appendChild(img); }
+  $('temp-area').classList.remove('hidden'); e.target.value = '';
+});
+$('btn-clear-temp').addEventListener('click', () => { tempUrls.forEach(u => URL.revokeObjectURL(u)); tempUrls.length = 0; $('temp-strip').innerHTML = ''; $('temp-area').classList.add('hidden'); });
+
+$('btn-add-mem').addEventListener('click', () => { $('mem-date-label').textContent = nowDateTime(); $('mem-form').classList.remove('hidden'); $('mem-input').focus(); });
+$('btn-mem-cancel').addEventListener('click', () => $('mem-form').classList.add('hidden'));
+$('btn-mem-save').addEventListener('click', () => { const text = $('mem-input').value.trim(); if (!text) return; const list = ls.get(MEM_KEY, []); list.push({ id: uid(), text, date: '写于 ' + nowDateTime() }); ls.set(MEM_KEY, list); $('mem-input').value = ''; $('mem-form').classList.add('hidden'); refreshData(); });
+
+const letterEl = $('letter'); letterEl.value = ls.raw('letter') || ''; let saveTimer = null; letterEl.addEventListener('input', () => { ls.rawSet('letter', letterEl.value); clearTimeout(saveTimer); saveTimer = setTimeout(() => { $('letter-save-note').innerHTML = '已自动保存 · <span class="saved">' + new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }) + '</span>'; }, 400); });
+
+$('btn-export').addEventListener('click', async () => {
+  const data = { app: 'memory-album', v: 1, exportedAt: new Date().toISOString(), letter: ls.raw('letter') || '', memories: ls.get(MEM_KEY, []), audios: [], photos: [] };
+  const result = await fetchPublicMedia();
+  for (const item of result.items || []) {
+    if (item.type === 'audio') data.audios.push({ id: item.id, title: item.title, date: item.date, url: item.url });
+    if (item.type === 'image') data.photos.push({ id: item.id, title: item.title, date: item.date, url: item.url });
   }
-  e.target.value = "";
-  refreshData();
+  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '回忆备份-' + todayStr().replace(/-/g, '') + '.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 3000);
 });
 
-/* —— 临时预览（不保存，刷新消失）—— */
-const tempUrls = [];
-$("btn-preview-photo").addEventListener("click", () => $("preview-file").click());
-$("preview-file").addEventListener("change", e => {
-  const files = Array.from(e.target.files || []);
-  if (!files.length) return;
-  const strip = $("temp-strip");
-  tempUrls.forEach(u => URL.revokeObjectURL(u));
-  tempUrls.length = 0;
-  strip.innerHTML = "";
-  for (const f of files) {
-    const u = URL.createObjectURL(f);
-    tempUrls.push(u);
-    const img = document.createElement("img");
-    img.src = u;
-    img.onclick = () => openLightbox(u);
-    strip.appendChild(img);
-  }
-  $("temp-area").classList.remove("hidden");
-  e.target.value = "";
-});
-$("btn-clear-temp").addEventListener("click", () => {
-  tempUrls.forEach(u => URL.revokeObjectURL(u));
-  tempUrls.length = 0;
-  $("temp-strip").innerHTML = "";
-  $("temp-area").classList.add("hidden");
-});
-
-/* —— 写回忆 —— */
-$("btn-add-mem").addEventListener("click", () => {
-  $("mem-date-label").textContent = nowDateTime();
-  $("mem-form").classList.remove("hidden");
-  $("mem-input").focus();
-});
-$("btn-mem-cancel").addEventListener("click", () => $("mem-form").classList.add("hidden"));
-$("btn-mem-save").addEventListener("click", () => {
-  const text = $("mem-input").value.trim();
-  if (!text) return;
-  const list = ls.get(MEM_KEY, []);
-  list.push({ id: uid(), text, date: "写于 " + nowDateTime() });
-  ls.set(MEM_KEY, list);
-  $("mem-input").value = "";
-  $("mem-form").classList.add("hidden");
-  refreshData();
-});
-
-/* ============================================================
-   五、一封信（自动保存）
-   ============================================================ */
-const letterEl = $("letter");
-letterEl.value = ls.raw("letter") || "";
-let saveTimer = null;
-letterEl.addEventListener("input", () => {
-  ls.rawSet("letter", letterEl.value);
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    $("letter-save-note").innerHTML = '已自动保存 · <span class="saved">' +
-      new Date().toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" }) + "</span>";
-  }, 400);
-});
-
-/* ============================================================
-   六、导出 / 导入备份（换设备、换浏览器时用）
-   ============================================================ */
-$("btn-export").addEventListener("click", async () => {
-  const data = {
-    app: "memory-album", v: 1, exportedAt: new Date().toISOString(),
-    letter: ls.raw("letter") || "",
-    memories: ls.get(MEM_KEY, []),
-    audios: await Promise.all((await FileStore.all("audios")).map(a =>
-      blobToDataURL(a.blob).then(url => ({ id: a.id, title: a.title, date: a.date, addedAt: a.addedAt, dataURL: url })))),
-    photos: await Promise.all((await FileStore.all("photos")).map(p =>
-      blobToDataURL(p.blob).then(url => ({ id: p.id, title: p.title, date: p.date, addedAt: p.addedAt, dataURL: url }))))
-  };
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "回忆备份-" + todayStr().replace(/-/g, "") + ".json";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
-});
-
-$("btn-import").addEventListener("click", () => $("import-file").click());
-$("import-file").addEventListener("change", async e => {
-  const f = e.target.files[0];
-  if (!f) return;
-  if (!confirm("导入备份会覆盖当前浏览器里已有的录音、图片、回忆和信，确定继续吗？")) { e.target.value = ""; return; }
+$('btn-import').addEventListener('click', () => $('import-file').click());
+$('import-file').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  if (!confirm('导入备份会覆盖当前浏览器里已有的回忆和信，确定继续吗？')) { e.target.value = ''; return; }
   try {
     const data = JSON.parse(await f.text());
-    if (data.app !== "memory-album") throw new Error("bad file");
-    ls.rawSet("letter", data.letter || "");
+    ls.rawSet('letter', data.letter || '');
     ls.set(MEM_KEY, data.memories || []);
-    await FileStore.clear("audios");
-    await FileStore.clear("photos");
-    for (const a of data.audios || []) {
-      await FileStore.add("audios", { id: a.id || uid(), title: a.title, date: a.date, addedAt: a.addedAt || 0, blob: dataURLToBlob(a.dataURL) });
-    }
-    for (const p of data.photos || []) {
-      await FileStore.add("photos", { id: p.id || uid(), title: p.title, date: p.date, addedAt: p.addedAt || 0, blob: dataURLToBlob(p.dataURL) });
-    }
-    urlCache.forEach(u => URL.revokeObjectURL(u));
-    urlCache.clear();
-    letterEl.value = ls.raw("letter") || "";
-    await refreshData();
-    alert("导入完成。");
+    letterEl.value = ls.raw('letter') || '';
+    alert('导入完成。');
   } catch (err) {
-    alert("文件格式不对，无法导入。");
+    alert('文件格式不对，无法导入。');
   }
-  e.target.value = "";
+  e.target.value = '';
 });
 
-/* ============================================================
-   七、导航切换
-   ============================================================ */
-const SECS = ["home", "memories", "recordings", "photos", "letter"];
-function currentSec() {
-  const h = location.hash.replace("#", "");
-  return SECS.includes(h) ? h : "home";
-}
-function navigate() {
-  const sec = currentSec();
-  document.querySelectorAll(".section").forEach(s => s.classList.remove("show"));
-  $("sec-" + sec).classList.add("show");
-  document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("active", a.dataset.sec === sec));
-  window.scrollTo(0, 0);
-}
-window.addEventListener("hashchange", navigate);
+const SECS = ['home', 'memories', 'recordings', 'photos', 'letter'];
+function currentSec() { const h = location.hash.replace('#', ''); return SECS.includes(h) ? h : 'home'; }
+function navigate() { const sec = currentSec(); document.querySelectorAll('.section').forEach(s => s.classList.remove('show')); $('sec-' + sec).classList.add('show'); document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('active', a.dataset.sec === sec)); window.scrollTo(0, 0); }
+window.addEventListener('hashchange', navigate);
+const lightbox = $('lightbox');
+function openLightbox(src) { $('lightbox-img').src = src; lightbox.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+function closeLightbox() { lightbox.classList.add('hidden'); document.body.style.overflow = ''; }
+lightbox.addEventListener('click', closeLightbox); document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-/* ============================================================
-   八、大图预览
-   ============================================================ */
-const lightbox = $("lightbox");
-function openLightbox(src) {
-  $("lightbox-img").src = src;
-  lightbox.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-}
-function closeLightbox() {
-  lightbox.classList.add("hidden");
-  document.body.style.overflow = "";
-}
-lightbox.addEventListener("click", closeLightbox);
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
-
-/* ============================================================
-   九、启动
-   ============================================================ */
 async function init() {
   document.title = SITE.title;
-  $("brand-seal").textContent = SITE.seal;
-  $("brand-title").textContent = SITE.title;
-  $("brand-sub").textContent = SITE.tagline;
-  $("home-stamp").textContent = SITE.stamp;
-  $("home-title").innerHTML = SITE.hero;
-  $("home-intro").textContent = SITE.intro;
-  $("home-note").innerHTML = SITE.note;
-
-  try { await openDB(); idbOk = true; }
-  catch (e) {
-    idbOk = false;
-    $("home-note").innerHTML += "<br><br>⚠️ 当前环境不支持本地数据库，已改用容量较小的后备存储（太大的文件可能存不下）。建议换用 Chrome / Safari / Edge 打开本页。";
-  }
-
-  try { if (!location.hash) history.replaceState(null, "", "#home"); } catch (e) {}
-
+  $('brand-seal').textContent = SITE.seal;
+  $('brand-title').textContent = SITE.title;
+  $('brand-sub').textContent = SITE.tagline;
+  $('home-stamp').textContent = SITE.stamp;
+  $('home-title').innerHTML = SITE.hero;
+  $('home-intro').textContent = SITE.intro;
+  $('home-note').innerHTML = SITE.note;
+  try { if (!location.hash) history.replaceState(null, '', '#home'); } catch (e) {}
   navigate();
   await refreshData();
 }
